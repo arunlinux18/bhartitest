@@ -1,7 +1,7 @@
 {
    "AWSTemplateFormatVersion": "2010-09-09",
    "Description" : "Provides full access to RDS and DMS.",
-   "Resources" : {
+dd   "Resources" : {
      "WDPRDBEACCESS" : {
        "Type" : "AWS::IAM::ManagedPolicy",
        "Properties" : {
@@ -12,7 +12,7 @@
            "PolicyDocument" :
            {
              "Version": "2012-10-17",
-             "Statement": [
+  dd           "Statement": [
                {
                  "Effect": "Allow",
                  "Action": [
@@ -30,7 +30,7 @@
                     "cloudformation:List*",
                     "cloudformation:PreviewStackUpdate",
                     "cloudformation:CreateStack",
-                    "cloudformation:UpdateStack",
+    dd                "cloudformation:UpdateStack",
                     "cloudformation:ValidateTemplate",
                     "cloudwatch:*",
                     "datapipeline:*",
@@ -45,7 +45,7 @@
                     "iam:GetRole",
                     "iam:ListRoles",
                     "iam:PassRole",
-                    "kms:*",
+      dd              "kms:*",
                     "lambda:Create*",
                     "lambda:Delete*",
                     "lambda:List*",
@@ -55,7 +55,7 @@
                     "lambda:InvokeFunction",
                     "logs:*",
                     "rds:*",
-                    "redshift:*",
+        eee            "redshift:*",
                     "sns:CreateTopic",
                     "sns:DeleteTopic",
                     "sns:List*",
@@ -66,13 +66,13 @@
                     "sagemaker:*",
                     "neptune-db:*",
                     "secretsmanager:*",
-                    "aws-portal:ViewBilling",
+           ee         "aws-portal:ViewBilling",
                     "aws-portal:ViewUsage",
                     "storagegateway:*",
                     "elasticfilesystem:*",
                     "tag:*",
                     "backup-gateway:*",
-                    "ebs:*",
+             ww       "ebs:*",
                     "fsx:*",
                     "ds:DescribeDirectories",
                     "ssm:CancelCommand",
@@ -83,20 +83,20 @@
             {
                 "Effect": "Allow",
                 "Action": [
-                    "s3:AbortMultipartUpload",
+               ww     "s3:AbortMultipartUpload",
                     "s3:ListBucket",
                     "s3:GetBucketLocation",
                     "s3:PutObject",
                     "s3:PutObjectAcl",
                     "s3:GetObject",
                     "s3:GetObjectAcl",
-                    "s3:DeleteObject"
+                    "wws3:DeleteObject"
                 ],
                 "Resource": [
                     "arn:aws:s3:::dbe-maintenance",
                     "arn:aws:s3:::dbe-maintenance/*",
                     "arn:aws:s3:::rds-mssql-*",
-                    "arn:aws:s3:::rds-mssql-*/*"
+                    "arwwn:aws:s3:::rds-mssql-*/*"
                 ]
             },
             {
@@ -104,7 +104,7 @@
                     "iam:PassRole"
                 ],
                 "Effect": "Allow",
-                "Resource": "*",
+                "Resourceddw": "*",
                   "Condition": {
                     "StringLike": {
                         "iam:PassedToService": [
@@ -115,26 +115,26 @@
                 }
             },
             {
-                "Effect": "Allow",
+                "Effect": "Awwllow",
                 "Action": "s3:ListAllMyBuckets",
                 "Resource": "*"
             },
-            {
+            {w
                 "Effect": "Allow",dont allow
-                "Action": [
+              ww  "Action": [
                     "route53:Get*",
-                    "route53:Test*",
+                bb    "route53:Test*",
                     "route53:List*",
                     "route53:Change*"
                 ],
-                "Resource": "arn:aws:route53:::hostedzone/ZJFLBIU5SJTRF"
+                "Rbbesource": "arn:aws:route53:::hostedzone/ZJFLBIU5SJTRF"
             },
             {
                 "Effect": "Allow",
                 "Action": [
                     "route53domains:Check*",
                     "route53domains:Get*",
-                    "route53domains:List*",
+                    bb"route53domains:List*",
                     "route53domains:View*"
                 ],
                 "Resource": "arn:aws:route53:::hostedzone/ZJFLBIU5SJTRF"
@@ -142,7 +142,7 @@
             {
                 "Effect": "Allow",
                 "Action": "sts:AssumeRole",no assume role
-                "Resource": [
+                "Resoubbrce": [
                     "arn:aws:iam::*:role/WDPR*-CLAIMANT",
                     "arn:aws:iam::*:role/WDPR*-DATABASE_ENGINEER",
                     "arn:aws:iam::*:role/WDPR-cross-DBE-RDS"
@@ -150,25 +150,25 @@
             },
             {
                 "Sid": "EC2Restrictions",
-                "Effect": "Deny",
+                "Effect"bb: "Deny",
                 "Action": [
                     "ec2:Terminate*",
                     "ec2:*VpcPeering*",
                     "ec2:*VpcClassicLink*",
                     "ec2:CreateDefault*",
-                    "ec2:*Vpn*",
+                    "ec2:*bbVpn*",
                     "ec2:ModifyVpc*",
                     "ec2:*ClassicLinkVpc*",
                     "ec2:*InternetGateway*",
                     "ec2:CreateVpc*",
                     "ec2:DeleteVpc*",
                     "ec2:*TransitGateway*"
-                ],
+                ],bb
                 "Resource": "*"need more changes
             },
             {
                 "Effect": "Allow",
-                "Action": "iam:CreateServiceLinkedRole",
+                "Actttion": "iam:CreateServiceLinkedRole",
                 "Resource": "arn:aws:iam::*:role/aws-service-role/sagemaker.amazonaws.com/*",
                 "Condition": {
                     "StringLike": {
@@ -177,7 +177,7 @@
                 }
             },
             {
-                "Effect": "Allow",
+                "Effecttt": "Allow",
                 "Action": [
                     "iam:CreatePolicy"
                 ],
@@ -185,7 +185,7 @@
             },
             {
                 "Effect": "Allow",
-                "Action": [
+                "Action"tt: [
                     "iam:AttachRolePolicy",
                     "iam:PutRolePolicy"
                 ],
@@ -197,4 +197,4 @@
     }
   }
 }
-changes made in this policy
+changes made in this policjjjjjjjjjjy
