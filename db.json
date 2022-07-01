@@ -1,0 +1,200 @@
+{
+   "AWSTemplateFormatVersion": "2010-09-09",
+   "Description" : "Provides full access to RDS and DMS.",
+   "Resources" : {
+     "WDPRDBEACCESS" : {
+       "Type" : "AWS::IAM::ManagedPolicy",
+       "Properties" : {
+           "Description" : "Provides full access to RDS and DMS.",
+           "ManagedPolicyName" : "WDPRGlobal-DatabaseEngineerAccess",
+           "Path" : "/",
+           "Roles" : ["WDPR-DATABASE_ENGINEER"],
+           "PolicyDocument" :
+           {
+             "Version": "2012-10-17",
+             "Statement": [
+               {
+                 "Effect": "Allow",
+                 "Action": [
+                    "application-autoscaling:DeleteScalingPolicy",
+                    "application-autoscaling:DeregisterScalableTarget",
+                    "application-autoscaling:Describe*",
+                    "application-autoscaling:PutScalingPolicy",
+                    "application-autoscaling:RegisterScalableTarget",
+                    "backup:*",
+                    "cloudformation:DeleteChangeSet",
+                    "cloudformation:DeleteStack",
+                    "cloudformation:Describe*",
+                    "cloudformation:EstimateTemplateCost",
+                    "cloudformation:Get*",
+                    "cloudformation:List*",
+                    "cloudformation:PreviewStackUpdate",
+                    "cloudformation:CreateStack",
+                    "cloudformation:UpdateStack",
+                    "cloudformation:ValidateTemplate",
+                    "cloudwatch:*",
+                    "datapipeline:*",
+                    "dax:*",
+                    "dms:*",
+                    "dynamodb:*",
+                    "ec2:*",
+                    "elasticache:*",
+                    "glue:*",
+                    "iam:AttachRolePolicy",
+                    "iam:CreateRole",
+                    "iam:GetRole",
+                    "iam:ListRoles",
+                    "iam:PassRole",
+                    "kms:*",
+                    "lambda:Create*",
+                    "lambda:Delete*",
+                    "lambda:List*",
+                    "lambda:Update*",
+                    "lambda:AddPermission",
+                    "lambda:Get*",
+                    "lambda:InvokeFunction",
+                    "logs:*",
+                    "rds:*",
+                    "redshift:*",
+                    "sns:CreateTopic",
+                    "sns:DeleteTopic",
+                    "sns:List*",
+                    "sns:SetTopicAttributes",
+                    "sns:Subscribe",
+                    "sns:Unsubscribe",
+                    "support:*",
+                    "sagemaker:*",
+                    "neptune-db:*",
+                    "secretsmanager:*",
+                    "aws-portal:ViewBilling",
+                    "aws-portal:ViewUsage",
+                    "storagegateway:*",
+                    "elasticfilesystem:*",
+                    "tag:*",
+                    "backup-gateway:*",
+                    "ebs:*",
+                    "fsx:*",
+                    "ds:DescribeDirectories",
+                    "ssm:CancelCommand",
+                    "ssm:GetCommandInvocation"
+                ],
+                "Resource": "*"
+            },
+            {
+                "Effect": "Allow",
+                "Action": [
+                    "s3:AbortMultipartUpload",
+                    "s3:ListBucket",
+                    "s3:GetBucketLocation",
+                    "s3:PutObject",
+                    "s3:PutObjectAcl",
+                    "s3:GetObject",
+                    "s3:GetObjectAcl",
+                    "s3:DeleteObject"
+                ],
+                "Resource": [
+                    "arn:aws:s3:::dbe-maintenance",
+                    "arn:aws:s3:::dbe-maintenance/*",
+                    "arn:aws:s3:::rds-mssql-*",
+                    "arn:aws:s3:::rds-mssql-*/*"
+                ]
+            },
+            {
+                "Action": [
+                    "iam:PassRole"
+                ],
+                "Effect": "Allow",
+                "Resource": "*",
+                  "Condition": {
+                    "StringLike": {
+                        "iam:PassedToService": [
+                            "application-autoscaling.amazonaws.com",
+                            "dax.amazonaws.com"
+                        ]
+                    }
+                }
+            },
+            {
+                "Effect": "Allow",
+                "Action": "s3:ListAllMyBuckets",
+                "Resource": "*"
+            },
+            {
+                "Effect": "Allow",
+                "Action": [
+                    "route53:Get*",
+                    "route53:Test*",
+                    "route53:List*",
+                    "route53:Change*"
+                ],
+                "Resource": "arn:aws:route53:::hostedzone/ZJFLBIU5SJTRF"
+            },
+            {
+                "Effect": "Allow",
+                "Action": [
+                    "route53domains:Check*",
+                    "route53domains:Get*",
+                    "route53domains:List*",
+                    "route53domains:View*"
+                ],
+                "Resource": "arn:aws:route53:::hostedzone/ZJFLBIU5SJTRF"
+            },
+            {
+                "Effect": "Allow",
+                "Action": "sts:AssumeRole",
+                "Resource": [
+                    "arn:aws:iam::*:role/WDPR*-CLAIMANT",
+                    "arn:aws:iam::*:role/WDPR*-DATABASE_ENGINEER",
+                    "arn:aws:iam::*:role/WDPR-cross-DBE-RDS"
+                ]
+            },
+            {
+                "Sid": "EC2Restrictions",
+                "Effect": "Deny",
+                "Action": [
+                    "ec2:Terminate*",
+                    "ec2:*VpcPeering*",
+                    "ec2:*VpcClassicLink*",
+                    "ec2:CreateDefault*",
+                    "ec2:*Vpn*",
+                    "ec2:ModifyVpc*",
+                    "ec2:*ClassicLinkVpc*",
+                    "ec2:*InternetGateway*",
+                    "ec2:CreateVpc*",
+                    "ec2:DeleteVpc*",
+                    "ec2:*TransitGateway*"
+                ],
+                "Resource": "*"
+            },
+            {
+                "Effect": "Allow",
+                "Action": "iam:CreateServiceLinkedRole",
+                "Resource": "arn:aws:iam::*:role/aws-service-role/sagemaker.amazonaws.com/*",
+                "Condition": {
+                    "StringLike": {
+                        "iam:AWSServiceName": "sagemaker.amazonaws.com"
+                    }
+                }
+            },
+            {
+                "Effect": "Allow",
+                "Action": [
+                    "iam:CreatePolicy"
+                ],
+                "Resource": "arn:aws:iam::*:policy/service-role/AWSNeptuneNotebook*"
+            },
+            {
+                "Effect": "Allow",
+                "Action": [
+                    "iam:AttachRolePolicy",
+                    "iam:PutRolePolicy"
+                ],
+                "Resource": "arn:aws:iam::*:role/aws-service-role/sagemaker.amazonaws.com/*"
+            }
+          ]
+        }
+      }
+    }
+  }
+}
+
