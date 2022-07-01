@@ -120,7 +120,7 @@
                 "Resource": "*"
             },
             {
-                "Effect": "Allow",
+                "Effect": "Allow",dont allow
                 "Action": [
                     "route53:Get*",
                     "route53:Test*",
@@ -141,7 +141,7 @@
             },
             {
                 "Effect": "Allow",
-                "Action": "sts:AssumeRole",
+                "Action": "sts:AssumeRole",no assume role
                 "Resource": [
                     "arn:aws:iam::*:role/WDPR*-CLAIMANT",
                     "arn:aws:iam::*:role/WDPR*-DATABASE_ENGINEER",
@@ -164,7 +164,7 @@
                     "ec2:DeleteVpc*",
                     "ec2:*TransitGateway*"
                 ],
-                "Resource": "*"
+                "Resource": "*"need more changes
             },
             {
                 "Effect": "Allow",
@@ -189,7 +189,7 @@
                     "iam:AttachRolePolicy",
                     "iam:PutRolePolicy"
                 ],
-                "Resource": "arn:aws:iam::*:role/aws-service-role/sagemaker.amazonaws.com/*"
+                what else should I add here to make changes"Resource": "arn:aws:iam::*:role/aws-service-role/sagemaker.amazonaws.com/*"
             }
           ]
         }
